@@ -9,6 +9,7 @@ Example usage in a docker-compose file:
 ```
   avahi-alias-balena:
     image: nobleo/avahi-alias-balena
+    privileged: true
     network_mode: host
     environment:
       - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
