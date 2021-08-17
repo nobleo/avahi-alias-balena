@@ -4,6 +4,7 @@ Extra mdns/avahi cnames with balena.
 
 This dockerfile will expose the application name and device id as extra `.local` hostnames on top of the `uuid123.local` that balena already provides.
 
+## Usage
 Example usage in a docker-compose file:
 
 ```yaml
@@ -17,3 +18,6 @@ Example usage in a docker-compose file:
     labels:
       io.balena.features.dbus: '1'
 ```
+
+## See also
+https://github.com/nobleo/balena-chrony.git
