@@ -6,7 +6,7 @@ This dockerfile will expose the application name and device id as extra `.local`
 
 Example usage in a docker-compose file:
 
-```
+```yaml
   avahi-alias-balena:
     image: nobleo/avahi-alias-balena
     privileged: true
