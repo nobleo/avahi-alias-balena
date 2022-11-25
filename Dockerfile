@@ -7,4 +7,4 @@ FROM flqw/avahi-alias:latest
 
 ENTRYPOINT []
 
-CMD bash -c "/usr/local/bin/avahi-alias ${BALENA_APP_NAME}.local ${BALENA_DEVICE_NAME_AT_INIT}.local ${CNAMES}"
+CMD bash -c "/usr/local/bin/avahi-alias ${BALENA_DEVICE_NAME_AT_INIT}.local ${CNAMES}"
