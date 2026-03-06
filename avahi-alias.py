@@ -1,4 +1,4 @@
-#! /usr/bin/env python2
+#! /usr/bin/env python3
 '''
 Register a mDNS/DNS-SD alias name for your computer using the Avahi daemon
 
@@ -28,12 +28,8 @@ TYPE_CNAME = dbus.UInt16(0x05)
 
 class AvahiPublisher(object):
 
-    cnames = set()
-
     def __init__(self, cnames):
-        for each in cnames:
-            name = unicode(each, locale.getpreferredencoding())
-            self.cnames.add(name)
+        self.cnames = cnames
 
     def publish_all(self):
         for cname in self.cnames:
@@ -46,7 +42,7 @@ class AvahiPublisher(object):
         group = dbus.Interface(bus.get_object(avahi.DBUS_NAME, server.EntryGroupNew()),
                 avahi.DBUS_INTERFACE_ENTRY_GROUP)
 
-        if not u'.' in cname:
+        if not '.' in cname:
             cname = cname + '.local'
         cname = self.encode_cname(cname)
         rdata = self.encode_rdata(server.GetHostNameFqdn())
@@ -70,16 +66,16 @@ if __name__ == '__main__':
     import time, sys, locale
     if len(sys.argv)<2:
         script_name = sys.argv[0]
-        print "Usage: %s hostname.local [hostname2.local] [hostname3.local]" % script_name
+        print("Usage: %s hostname.local [hostname2.local] [hostname3.local]" % script_name)
         sys.exit(1)
-        
+
     publisher = AvahiPublisher(sys.argv[1:])
     publisher.publish_all()
 
     try:
-        while True: 
+        while True:
             time.sleep(RAW_TTL - 10)
             publisher.publish_all()
     except KeyboardInterrupt:
-        print "Exiting"
+        print("Exiting")
         sys.exit(0)
