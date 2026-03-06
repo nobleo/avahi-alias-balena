@@ -1,7 +1,7 @@
-FROM phusion/baseimage:latest
+FROM phusion/baseimage:noble
 
 RUN apt-get update && apt-get install -y \
-python-avahi \
+python3-avahi \
 && rm -rf /var/lib/apt/lists/*
 
 COPY ./avahi-alias.py /usr/local/bin/avahi-alias
