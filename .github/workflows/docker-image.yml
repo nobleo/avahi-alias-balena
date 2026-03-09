@@ -2,6 +2,12 @@ name: CI
 
 on:
   workflow_dispatch:
+    inputs:
+      bumpver:
+        description: 'Run bumpver before building'
+        required: false
+        default: false
+        type: boolean
   push:
     branches:
       - 'main'
@@ -17,6 +23,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+
+      - name: Run bumpver
+        if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch' && inputs.bumpver }}
+        run: |
+          pip install bumpver
+          bumpver update --no-fetch
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
