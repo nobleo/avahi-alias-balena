@@ -1,9 +1,11 @@
-FROM flqw/avahi-alias:latest
+FROM phusion/baseimage:latest
 
-# Unfortunately we need to build an image with new entrypoint, since variable substitution does not work in balena:
-# https://www.balena.io/docs/reference/supervisor/docker-compose/#known-unsupported-features
+RUN apt-get update && apt-get install -y \
+python-avahi \
+&& rm -rf /var/lib/apt/lists/*
 
-# Extra name(s) can be supplied using the "CNAMES" variable
+COPY ./avahi-alias.py /usr/local/bin/avahi-alias
+RUN chmod +x /usr/local/bin/avahi-alias
 
 ENTRYPOINT []
 
